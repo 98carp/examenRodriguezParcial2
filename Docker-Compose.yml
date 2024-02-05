@@ -1,0 +1,13 @@
+version: '0.1'
+services:
+  mongodb:
+    image: 'mongodb/mongodb-community-server:latest'
+    container_name: mongodb
+    ports:
+      - '27017:27017'
+  examenrodriguez:
+    image: '98carp/examenrodriguez:0.1'
+    container_name: 'examen_rodriguez'
+    ports:
+      - '8080:8080'
+    depends_on: [mongodb]
