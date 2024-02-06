@@ -11,5 +11,5 @@ public class Comentario {
     private BigDecimal calificacion;
     private String comentario;
     private String usuario;
-    private Date fechaComentario;
+    private String fechaComentario;
 }
