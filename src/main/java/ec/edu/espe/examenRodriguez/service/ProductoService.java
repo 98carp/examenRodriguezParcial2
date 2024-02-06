@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -39,6 +40,26 @@ public class ProductoService {
         }
         return listaProductosDto;
     }
+    public void agregarProducto(ProductoResDto productoResDto){
+        try{
+           Optional<Producto> producto=this.productoRepository.findByCodigoProducto(productoResDto.getCodigoProducto());
+           if(!producto.isPresent()){
+               throw new RuntimeException("Error ya existe producto con ese código");
+           }
+           Producto productoTemp=new Producto();
+           productoTemp.setCodigoProducto(productoResDto.getCodigoProducto());
+           productoTemp.setDescripcion(productoResDto.getDescripcion());
+           productoTemp.setComentarios(productoResDto.getComentarios());
+           productoTemp.setPrecio(productoResDto.getPrecio());
+           productoTemp.setRucEmpresa(productoResDto.getRucEmpresa());
+
+           this.productoRepository.save(productoTemp);
+
+
+        }catch (Exception e){
+            throw new RuntimeException("Error al agregar el producto");
+        }
+    }
     public void agregarComentario(Comentario comentario,String codigoProducto){
         try{
           Producto producto=this.productoRepository.findByCodigoProducto(codigoProducto).orElseThrow(()->{
@@ -49,10 +70,11 @@ public class ProductoService {
           comentarios.add(comentario);
           producto.setComentarios(comentarios);
           this.productoRepository.save(producto);
-          
+
         }catch (Exception e){
             throw new RuntimeException("Error al agregar comentario");
         }
     }
+
 
 }
