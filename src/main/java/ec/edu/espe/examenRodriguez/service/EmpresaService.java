@@ -33,7 +33,7 @@ public class EmpresaService {
         return empresaDto;
     }
 
-    public void crearEmpresa(EmpresaDto nuevaEmpresa)
+    public Empresa crearEmpresa(EmpresaDto nuevaEmpresa)
     {
         try{
             Optional<Empresa> empresaTemp=this.empresaRepository.findByRuc(nuevaEmpresa.getRuc());
@@ -45,8 +45,9 @@ public class EmpresaService {
             empresa.setRuc(nuevaEmpresa.getRuc());
             empresa.setFechaCreacion(nuevaEmpresa.getFechaCreacion());
             empresa.setRazonSocial(nuevaEmpresa.getRazonSocial());
-            this.empresaRepository.save(empresa);
             log.info("Se creo la empresa: ", empresa);
+            return this.empresaRepository.save(empresa);
+
         }catch (Exception e){
             throw new RuntimeException("Error al crear empresa");
         }

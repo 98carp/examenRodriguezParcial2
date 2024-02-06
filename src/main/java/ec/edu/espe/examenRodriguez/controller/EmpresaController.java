@@ -1,10 +1,11 @@
 package ec.edu.espe.examenRodriguez.controller;
 
+import ec.edu.espe.examenRodriguez.domain.Empresa;
+import ec.edu.espe.examenRodriguez.dto.EmpresaDto;
 import ec.edu.espe.examenRodriguez.service.EmpresaService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/empresa")
@@ -16,6 +17,19 @@ public class EmpresaController {
         this.empresaService = empresaService;
     }
 
+    @GetMapping
+    public ResponseEntity<EmpresaDto> obtenerEmpresaPorRuc(String rucEmpresa){
+        log.info("Obtener Empresa por ruc");
+        return ResponseEntity.ok(this.empresaService.obtenerEmpresaPorRuc(rucEmpresa));
+    }
+
+    @PostMapping
+    public ResponseEntity<Empresa> crearEmpresa(
+            @RequestBody EmpresaDto nuevaEmpresa
+    ){
+        log.info("Se crea empresa");
+        return ResponseEntity.ok(this.empresaService.crearEmpresa(nuevaEmpresa));
+    }
 
 
 }

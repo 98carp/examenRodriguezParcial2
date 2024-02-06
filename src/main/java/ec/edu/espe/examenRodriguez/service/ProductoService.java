@@ -40,7 +40,7 @@ public class ProductoService {
         }
         return listaProductosDto;
     }
-    public void agregarProducto(ProductoResDto productoResDto){
+    public Producto agregarProducto(ProductoResDto productoResDto){
         try{
            Optional<Producto> producto=this.productoRepository.findByCodigoProducto(productoResDto.getCodigoProducto());
            if(!producto.isPresent()){
@@ -53,14 +53,14 @@ public class ProductoService {
            productoTemp.setPrecio(productoResDto.getPrecio());
            productoTemp.setRucEmpresa(productoResDto.getRucEmpresa());
 
-           this.productoRepository.save(productoTemp);
+          return this.productoRepository.save(productoTemp);
 
 
         }catch (Exception e){
             throw new RuntimeException("Error al agregar el producto");
         }
     }
-    public void agregarComentario(Comentario comentario,String codigoProducto){
+    public Producto agregarComentario(Comentario comentario,String codigoProducto){
         try{
           Producto producto=this.productoRepository.findByCodigoProducto(codigoProducto).orElseThrow(()->{
               log.error("No se encuentra el producto con el código {}",codigoProducto);
@@ -69,7 +69,7 @@ public class ProductoService {
           List<Comentario>comentarios=producto.getComentarios();
           comentarios.add(comentario);
           producto.setComentarios(comentarios);
-          this.productoRepository.save(producto);
+          return this.productoRepository.save(producto);
 
         }catch (Exception e){
             throw new RuntimeException("Error al agregar comentario");
