@@ -29,7 +29,7 @@ public class EmpresaService {
                 .fechaCreacion(empresa.getFechaCreacion())
                 .razonSocial(empresa.getRazonSocial())
                 .build();
-
+        log.info("Obtener Empresa por ruc", empresaDto);
         return empresaDto;
     }
 

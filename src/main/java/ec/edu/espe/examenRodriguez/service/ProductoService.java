@@ -22,13 +22,14 @@ public class ProductoService {
     }
     public List<ProductoResDto> obtenerProductosPorEmpresa(String rucEmpresa){
         List<Producto>productos=this.productoRepository.findAllByRucEmpresa(rucEmpresa);
-
         if(productos.isEmpty()){
+            log.error("No existen productos de la empresa con ruc ", rucEmpresa);
             throw new RuntimeException("No existen productos de esa empresa");
         }
         ProductoResDto productoTemp;
         List<ProductoResDto> listaProductosDto=new ArrayList<>();
         for(Producto producto:productos){
+
             productoTemp= ProductoResDto.builder()
                     .codigoProducto(producto.getCodigoProducto())
                     .rucEmpresa(producto.getRucEmpresa())
@@ -38,6 +39,7 @@ public class ProductoService {
                     .build();
             listaProductosDto.add(productoTemp);
         }
+        log.info("productos encontrados",listaProductosDto);
         return listaProductosDto;
     }
     public Producto obtenerUnProducto(String codigoProducto){
@@ -45,6 +47,7 @@ public class ProductoService {
             log.error("No existe producto con codigo {}",codigoProducto);
             return new RuntimeException("no existe producto");
         });
+        log.info("Producto encontrado",producto);
         return producto;
     }
     public List<Comentario> obtenerComentarios(String codigoProducto){
@@ -52,12 +55,14 @@ public class ProductoService {
             log.error("No existe producto con codigo {}",codigoProducto);
             return new RuntimeException("no existe producto");
         });
+        log.info("Comentarios encontrados ",producto.getComentarios());
         return producto.getComentarios();
     }
     public Producto agregarProducto(ProductoResDto productoResDto){
         try{
            Optional<Producto> producto=this.productoRepository.findByCodigoProducto(productoResDto.getCodigoProducto());
            if(!producto.isPresent()){
+               log.error("Ya existe producto con ese código");
                throw new RuntimeException("Error ya existe producto con ese código");
            }
            Producto productoTemp=new Producto();
@@ -66,7 +71,7 @@ public class ProductoService {
            productoTemp.setComentarios(productoResDto.getComentarios());
            productoTemp.setPrecio(productoResDto.getPrecio());
            productoTemp.setRucEmpresa(productoResDto.getRucEmpresa());
-
+            log.info("Producto registrador",productoTemp);
           return this.productoRepository.save(productoTemp);
 
 
@@ -83,6 +88,7 @@ public class ProductoService {
           List<Comentario>comentarios=producto.getComentarios();
           comentarios.add(comentario);
           producto.setComentarios(comentarios);
+          log.info(String.valueOf(producto));
           return this.productoRepository.save(producto);
 
         }catch (Exception e){
