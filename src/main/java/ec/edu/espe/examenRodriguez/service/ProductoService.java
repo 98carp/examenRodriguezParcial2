@@ -40,6 +40,13 @@ public class ProductoService {
         }
         return listaProductosDto;
     }
+    public Producto obtenerUnProducto(String codigoProducto){
+        Producto producto=this.productoRepository.findByCodigoProducto(codigoProducto).orElseThrow(()->{
+            log.error("No existe producto con codigo {}",codigoProducto);
+            return new RuntimeException("no existe producto");
+        });
+        return producto;
+    }
     public Producto agregarProducto(ProductoResDto productoResDto){
         try{
            Optional<Producto> producto=this.productoRepository.findByCodigoProducto(productoResDto.getCodigoProducto());

@@ -31,6 +31,14 @@ public class ProductoController {
 
     }
 
+    @GetMapping("/codigoProducto")
+    public ResponseEntity<Producto> obtenerProducto(
+            @PathVariable("codigoProducto") String codigoProducto
+    ){
+        log.info("Obtener producto por codigo");
+        return ResponseEntity.ok(this.productoService.obtenerUnProducto(codigoProducto));
+    }
+
     @PostMapping()
     public ResponseEntity<Producto>agregarProducto(
 @RequestBody ProductoResDto productoResDto
