@@ -18,7 +18,9 @@ public class EmpresaController {
     }
 
     @GetMapping
-    public ResponseEntity<EmpresaDto> obtenerEmpresaPorRuc(String rucEmpresa){
+    public ResponseEntity<EmpresaDto> obtenerEmpresaPorRuc(
+
+          @PathVariable("rucEmpresa")  String rucEmpresa){
         log.info("Obtener Empresa por ruc");
         return ResponseEntity.ok(this.empresaService.obtenerEmpresaPorRuc(rucEmpresa));
     }
