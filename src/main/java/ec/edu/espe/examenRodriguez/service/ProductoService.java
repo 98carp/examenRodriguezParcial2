@@ -21,7 +21,7 @@ public class ProductoService {
         this.productoRepository = productoRepository;
     }
     public List<ProductoResDto> obtenerProductosPorEmpresa(String rucEmpresa){
-        List<Producto>productos=this.productoRepository.findAllByRucEmpresa(rucEmpresa);
+        List<Producto>productos=this.productoRepository.findProductosByRucEmpresaLike(rucEmpresa);
         if(productos.isEmpty()){
             log.error("No existen productos de la empresa con ruc ", rucEmpresa);
             throw new RuntimeException("No existen productos de esa empresa");

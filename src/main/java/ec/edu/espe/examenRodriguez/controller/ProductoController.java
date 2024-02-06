@@ -24,7 +24,7 @@ public class ProductoController {
     @GetMapping("/lista/{rucEmpresa}")
     public ResponseEntity<List<ProductoResDto>>
         obtenerProductosPorEmpresa(
-                @PathParam("rucEmpresa")
+                @PathVariable("rucEmpresa")
                 String rucEmpresa){
         log.info("Obteniendo listado de productos");
         return ResponseEntity.ok(this.productoService.obtenerProductosPorEmpresa(rucEmpresa));

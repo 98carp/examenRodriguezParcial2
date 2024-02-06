@@ -7,6 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProductoRepository extends MongoRepository<Producto, String> {
-    List<Producto> findAllByRucEmpresa(String rucRmpresa);
+    List<Producto> findProductosByRucEmpresaLike(String rucRmpresa);
     Optional<Producto> findByCodigoProducto(String codigoProducto);
 }
