@@ -10,6 +10,6 @@ import java.util.Date;
 public class EmpresaDto {
     private String ruc;
     private String razonSocial;
-    private Date fechaCreacion;
+    private String fechaCreacion;
 
 }

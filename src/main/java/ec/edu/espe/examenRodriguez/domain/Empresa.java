@@ -15,7 +15,7 @@ public class Empresa {
     @Indexed(unique = true)
     private String ruc;
     private String razonSocial;
-    private Date fechaCreacion;
+    private String fechaCreacion;
 
 
 }
