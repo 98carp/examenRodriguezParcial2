@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Data
 @Builder
-public class EmpresaResDto {
+public class EmpresaDto {
     private String ruc;
     private String razonSocial;
     private Date fechaCreacion;
