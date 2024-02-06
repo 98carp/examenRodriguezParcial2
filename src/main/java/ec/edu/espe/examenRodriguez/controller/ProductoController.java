@@ -38,6 +38,14 @@ public class ProductoController {
         log.info("Obtener producto por codigo");
         return ResponseEntity.ok(this.productoService.obtenerUnProducto(codigoProducto));
     }
+    @GetMapping("/comentarios/codigoProducto")
+    public ResponseEntity<List<Comentario>> obtenerComentariosPorProducto(
+            @PathVariable("codigoProducto") String codigoProducto
+    ){
+        log.info("Obtener comentarios por codigo");
+        return ResponseEntity.ok(this.productoService.obtenerComentarios(codigoProducto));
+    }
+
 
     @PostMapping()
     public ResponseEntity<Producto>agregarProducto(
